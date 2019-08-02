@@ -1,0 +1,54 @@
+<HTML>
+<HEAD>
+    <title>Radio Internet by Dewo</title>
+    <style>
+        body { font-size: 14pt; }
+        select { font-size: 1em; padding: 10px; }
+    </style>
+</HEAD>
+<BODY>
+</BODY>
+    <p>Pilih radio: <select id="OptRadio" onchange="ChangeChannel(this)"></select></p>
+    <audio id="radio" src="" preload></audio>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+radio = [
+    "Prambors Jkt;http://masima.rastream.com/masima-pramborsjakarta?",
+    "HardRock FM;http://cloudstreaming.mramedia.com:8001/live",
+    "Smart FM JKT;http://101.50.0.77:8000/smartfm.aac",
+    "Gajahmada Smrg;http://gajahmada.i.streaming.id:8000/live",
+    "Imelda Smrg;http://111.68.27.245:8020/imeldafm",
+    "CRadio Smrg;http://111.68.31.150:8000/cradio.mp3",
+    "Rasika Smrg;http://stream.suararadio.com:8000/rasikafm_mono",
+    "DengerinMusik;http://stream.denger.in:8000/stream?1475311447299.aac",
+    "Female Jkt;http://masima.rastream.com/masima-femaleradio",
+    "Cosmopolitan;http://cloudstreaming.mramedia.com:8002/live",
+    "Motion Jkt;http://103.226.246.245/kompas-motionjakarta",
+    "Retjo Buntung;http://usa.jogjastreamers.com:8000/rbfm456789stereo?",
+    "KR Radio Jogja;http://krradio.myradio.web.id:8888/krradio"
+]
+$(function() {
+    GenerateOptions();
+});
+function GenerateOptions() {
+    var opt = $("#OptRadio");
+    opt.html("<option>( Pilih Channel )</option>");
+    radio.forEach(function(v, i) {
+        var rad = v.split(";");
+        opt.append("<option value='" + rad[1] + "'>"+ rad[0] +"</option>");
+    });
+}
+function ChangeChannel(t) {
+    var url = $(t).val();
+    var aud = document.getElementById("radio");
+    aud.src = url;
+    var promise = aud.play();
+    if (promise !== undefined) {
+        promise.catch(error => {
+            alert(error);
+        });
+    };
+}
+</script>  
+</BODY>
+</HTML>
